@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 class BuscarTipoUsuarioUseCaseTest {
     ITipoUsuarioGateway tipoUsuarioGateway;
@@ -20,12 +20,14 @@ class BuscarTipoUsuarioUseCaseTest {
 
     @Test
     void testBuscarTipoUsuarioComSucesso() {
+        Long id = 1L;
         String nomeTipoUsuario = "Dono de Restaurante";
-        TipoUsuario tipoUsuario = TipoUsuario.criar(nomeTipoUsuario);
-        when(this.tipoUsuarioGateway.buscaTipoUsuario(anyString())).thenReturn(tipoUsuario);
+        TipoUsuario tipoUsuario = TipoUsuario.criar(id, nomeTipoUsuario);
+        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(tipoUsuario);
 
-        TipoUsuario tipoUsuarioRetorno = BuscarTipoUsuarioUseCase.criar(this.tipoUsuarioGateway).processar(nomeTipoUsuario);
+        TipoUsuario tipoUsuarioRetorno = BuscarTipoUsuarioUseCase.criar(this.tipoUsuarioGateway).processar(id);
 
+        verify(this.tipoUsuarioGateway, times(1)).buscarTipoUsuarioPorId(any(Long.class));
         assertNotNull(tipoUsuarioRetorno);
         assertEquals(nomeTipoUsuario, tipoUsuarioRetorno.getNome());
     }

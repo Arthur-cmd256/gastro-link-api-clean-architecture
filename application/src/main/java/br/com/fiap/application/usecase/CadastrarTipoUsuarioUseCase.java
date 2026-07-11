@@ -17,6 +17,6 @@ public class CadastrarTipoUsuarioUseCase {
 
     public TipoUsuario processar(String nome) {
         TipoUsuario tipoUsuario = TipoUsuario.criar(nome);
-        return this.tipoUsuarioGateway.salvar(tipoUsuario);
+        return this.tipoUsuarioGateway.salvarTipoUsuario(tipoUsuario);
     }
 }

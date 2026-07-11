@@ -3,7 +3,9 @@ package br.com.fiap.application.port.out;
 import br.com.fiap.domain.entity.TipoUsuario;
 
 public interface ITipoUsuarioGateway {
-    TipoUsuario salvar(TipoUsuario tipoUsuario);
+    TipoUsuario salvarTipoUsuario(TipoUsuario tipoUsuario);
 
-    TipoUsuario buscaTipoUsuario(String nome);
+    TipoUsuario buscarTipoUsuarioPorId(Long id);
+
+    TipoUsuario deletarTipoUsuario(Long id);
 }

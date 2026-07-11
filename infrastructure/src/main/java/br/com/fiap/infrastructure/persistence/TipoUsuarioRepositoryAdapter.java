@@ -5,7 +5,17 @@ import br.com.fiap.domain.entity.TipoUsuario;
 
 public class TipoUsuarioRepositoryAdapter implements ITipoUsuarioGateway {
     @Override
-    public TipoUsuario salvar(TipoUsuario tipoUsuario) {
+    public TipoUsuario salvarTipoUsuario(TipoUsuario tipoUsuario) {
+        return null;
+    }
+
+    @Override
+    public TipoUsuario buscarTipoUsuarioPorId(Long id) {
+        return null;
+    }
+
+    @Override
+    public TipoUsuario deletarTipoUsuario(Long id) {
         return null;
     }
 }

@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 class CadastrarTipoUsuarioUseCaseTest {
 
@@ -24,10 +24,11 @@ class CadastrarTipoUsuarioUseCaseTest {
     @Test
     void testCadastrarTipoUsuarioComSucesso() {
         String nomeTipoUsuario = "Dono de Restaurante";
-        when(this.tipoUsuarioGateway.salvar(any(TipoUsuario.class))).thenAnswer(i -> i.getArgument(0));
+        when(this.tipoUsuarioGateway.salvarTipoUsuario(any(TipoUsuario.class))).thenAnswer(i -> i.getArgument(0));
 
         final TipoUsuario tipoUsuario = CadastrarTipoUsuarioUseCase.criar(this.tipoUsuarioGateway).processar(nomeTipoUsuario);
 
+        verify(this.tipoUsuarioGateway, times(1)).salvarTipoUsuario(any(TipoUsuario.class));
         assertNotNull(tipoUsuario);
         assertEquals(nomeTipoUsuario, tipoUsuario.getNome());
     }

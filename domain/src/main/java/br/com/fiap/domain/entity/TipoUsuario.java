@@ -13,7 +13,15 @@ public class TipoUsuario {
         return new TipoUsuario(null, nome);
     }
 
+    public static TipoUsuario criar(Long id, String nome) {
+        return new TipoUsuario(id, nome);
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

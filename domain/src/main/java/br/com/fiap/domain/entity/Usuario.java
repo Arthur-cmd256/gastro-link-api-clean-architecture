@@ -16,4 +16,24 @@ public class Usuario {
     public static Usuario criar(String nome, String enderecoDeEmail, TipoUsuario tipoUsuario) {
         return new Usuario(null, nome, enderecoDeEmail, tipoUsuario);
     }
+
+    public static Usuario criar(Long id, String nome, String enderecoDeEmail, TipoUsuario tipoUsuario) {
+        return new Usuario(id, nome, enderecoDeEmail, tipoUsuario);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEnderecoDeEmail() {
+        return enderecoDeEmail;
+    }
+
+    public String getTipoUsuarioNome() {
+        return tipoUsuario.getNome();
+    }
 }

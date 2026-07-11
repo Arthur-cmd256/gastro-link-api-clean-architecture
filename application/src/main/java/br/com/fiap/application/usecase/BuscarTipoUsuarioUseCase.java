@@ -15,7 +15,7 @@ public class BuscarTipoUsuarioUseCase {
         return new BuscarTipoUsuarioUseCase(tipoUsuarioGateway);
     }
 
-    public TipoUsuario processar(String nome) {
-        return this.tipoUsuarioGateway.buscaTipoUsuario(nome);
+    public TipoUsuario processar(Long id) {
+        return this.tipoUsuarioGateway.buscarTipoUsuarioPorId(id);
     }
 }
