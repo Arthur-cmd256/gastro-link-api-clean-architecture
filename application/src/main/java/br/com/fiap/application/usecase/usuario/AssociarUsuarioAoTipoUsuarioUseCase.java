@@ -1,10 +1,12 @@
-package br.com.fiap.application.usecase;
+package br.com.fiap.application.usecase.usuario;
 
+import br.com.fiap.application.dto.AssociarUsuarioAoTipoUsuarioInput;
 import br.com.fiap.application.port.out.ITipoUsuarioGateway;
 import br.com.fiap.application.port.out.IUsuarioGateway;
 import br.com.fiap.domain.entity.TipoUsuario;
 import br.com.fiap.domain.entity.Usuario;
-import br.com.fiap.domain.exception.EntidadeNaoEncotradaException;
+import br.com.fiap.domain.exception.TipoUsuarioNaoEncontradoException;
+import br.com.fiap.domain.exception.UsuarioNaoEncontradoException;
 
 public class AssociarUsuarioAoTipoUsuarioUseCase {
     private final ITipoUsuarioGateway tipoUsuarioGateway;
@@ -19,14 +21,16 @@ public class AssociarUsuarioAoTipoUsuarioUseCase {
         return new AssociarUsuarioAoTipoUsuarioUseCase(tipoUsuarioGateway, usuarioGateway);
     }
 
-    public Usuario processar(Long idUsuario, Long idTipoUsuario) {
+    public Usuario processar(AssociarUsuarioAoTipoUsuarioInput associarUsuarioAoTipoUsuarioInput) {
+        Long idUsuario = associarUsuarioAoTipoUsuarioInput.idUsuario();
+        Long idTipoUsuario = associarUsuarioAoTipoUsuarioInput.idTipoUsuario();
         Usuario usuarioBuscado = this.usuarioGateway.buscarUsuarioPorId(idUsuario);
         if (usuarioBuscado == null) {
-            throw new EntidadeNaoEncotradaException("Usuario com o id "  + idUsuario + " nao encontrado");
+            throw new UsuarioNaoEncontradoException(idUsuario);
         }
         TipoUsuario tipoUsuarioBuscado = this.tipoUsuarioGateway.buscarTipoUsuarioPorId(idTipoUsuario);
         if (tipoUsuarioBuscado == null) {
-            throw new EntidadeNaoEncotradaException("Tipo usuario com o id " + idTipoUsuario + " nao encontrado");
+            throw new TipoUsuarioNaoEncontradoException(idTipoUsuario);
         }
         Usuario usuarioComTipo = Usuario.criar(
                 usuarioBuscado.getId(),

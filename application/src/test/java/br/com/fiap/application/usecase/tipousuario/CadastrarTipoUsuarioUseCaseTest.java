@@ -1,4 +1,4 @@
-package br.com.fiap.application.usecase;
+package br.com.fiap.application.usecase.tipousuario;
 
 import br.com.fiap.application.port.out.ITipoUsuarioGateway;
 import br.com.fiap.domain.entity.TipoUsuario;

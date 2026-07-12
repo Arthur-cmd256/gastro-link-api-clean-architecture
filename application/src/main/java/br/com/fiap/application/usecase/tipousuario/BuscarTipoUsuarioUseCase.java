@@ -1,4 +1,4 @@
-package br.com.fiap.application.usecase;
+package br.com.fiap.application.usecase.tipousuario;
 
 import br.com.fiap.application.port.out.ITipoUsuarioGateway;
 import br.com.fiap.domain.entity.TipoUsuario;
@@ -15,7 +15,7 @@ public class BuscarTipoUsuarioUseCase {
         return new BuscarTipoUsuarioUseCase(tipoUsuarioGateway);
     }
 
-    public TipoUsuario processar(Long id) {
-        return this.tipoUsuarioGateway.buscarTipoUsuarioPorId(id);
+    public TipoUsuario processar(Long idTipoUsuario) {
+        return this.tipoUsuarioGateway.buscarTipoUsuarioPorId(idTipoUsuario);
     }
 }

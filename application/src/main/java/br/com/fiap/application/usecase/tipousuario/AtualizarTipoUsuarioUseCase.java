@@ -1,8 +1,9 @@
-package br.com.fiap.application.usecase;
+package br.com.fiap.application.usecase.tipousuario;
 
+import br.com.fiap.application.dto.AtualizarTipoUsuarioInput;
 import br.com.fiap.application.port.out.ITipoUsuarioGateway;
 import br.com.fiap.domain.entity.TipoUsuario;
-import br.com.fiap.domain.exception.EntidadeNaoEncotradaException;
+import br.com.fiap.domain.exception.TipoUsuarioNaoEncontradoException;
 
 public class AtualizarTipoUsuarioUseCase {
 
@@ -16,12 +17,16 @@ public class AtualizarTipoUsuarioUseCase {
         return new AtualizarTipoUsuarioUseCase(tipoUsuarioGateway);
     }
 
-    public TipoUsuario processar(TipoUsuario tipoUsuarioAlterado) {
-        Long idTipoUsuario = tipoUsuarioAlterado.getId();
+    public TipoUsuario processar(AtualizarTipoUsuarioInput atualizarTipoUsuarioInput) {
+        Long idTipoUsuario = atualizarTipoUsuarioInput.id();
         TipoUsuario tipoUsuario = this.tipoUsuarioGateway.buscarTipoUsuarioPorId(idTipoUsuario);
         if (tipoUsuario == null) {
-            throw new EntidadeNaoEncotradaException("O tipo evento com o id " + idTipoUsuario + " não foi encontrado.");
+            throw new TipoUsuarioNaoEncontradoException(idTipoUsuario);
         }
+        TipoUsuario tipoUsuarioAlterado = TipoUsuario.criar(
+                atualizarTipoUsuarioInput.id(),
+                atualizarTipoUsuarioInput.nome()
+        );
         return this.tipoUsuarioGateway.salvarTipoUsuario(tipoUsuarioAlterado);
     }
 }
