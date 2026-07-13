@@ -27,11 +27,9 @@ public class CadastrarItemCardapioUseCase {
         if (idRestaurante == null) {
             throw new DadoObrigatorioException("restauranteId");
         }
-        Restaurante restaurante = this.restauranteGateway.buscarRestaurantePorId(idRestaurante);
-
-        if (restaurante == null) {
-            throw new RestauranteNaoEncontradoException(idRestaurante);
-        }
+        Restaurante restaurante = this.restauranteGateway
+                .buscarRestaurantePorId(idRestaurante)
+                .orElseThrow(() -> new RestauranteNaoEncontradoException(idRestaurante));
 
         ItemCardapio itemCardapio = ItemCardapio.criar(
                 cadastrarItemCardapioInput.nome(),

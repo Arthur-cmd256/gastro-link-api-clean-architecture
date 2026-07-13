@@ -15,6 +15,8 @@ public class BuscarRestauranteUseCase {
     }
 
     public Restaurante processar(Long idRestaurante) {
-        return this.restauranteGateway.buscarRestaurantePorId(idRestaurante);
+        return this.restauranteGateway
+                .buscarRestaurantePorId(idRestaurante)
+                .orElseThrow(() -> new RuntimeException("Restaurante não encontrado com o ID: " + idRestaurante));
     }
 }

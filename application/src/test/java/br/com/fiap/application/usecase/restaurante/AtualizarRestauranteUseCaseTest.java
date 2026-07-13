@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -81,7 +83,7 @@ class AtualizarRestauranteUseCaseTest {
                 horarioFuncionamentoRestaurante,
                 this.donoRestaurante
         );
-        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(restauranteCadastrado);
+        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(Optional.of(restauranteCadastrado));
         String tipoCozinhaNomeAtualizacao = "Arabe";
         TipoCozinha tipoCozinhaAtualizacao = TipoCozinha.criar(tipoCozinhaNomeAtualizacao);
         String nomeRestauranteAtualizacao = "Esfiha Imigrantes";
@@ -133,7 +135,7 @@ class AtualizarRestauranteUseCaseTest {
                 horarioFuncionamentoRestaurante,
                 this.donoRestaurante
         );
-        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(restauranteCadastrado);
+        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(Optional.of(restauranteCadastrado));
         Long idUsuarioAtualizacao = 2L;
         Usuario donoRestauranteAtualizacao = usuarioSetUp(
                 idUsuarioAtualizacao,
@@ -171,7 +173,7 @@ class AtualizarRestauranteUseCaseTest {
     @Test
     void testAtualizarRestauranteComErroRestauranteNaoEncontrado() {
         Long idRestaurante = 1L;
-        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(null);
+        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(Optional.empty());
         String tipoCozinhaNomeAtualizacao = "Arabe";
         TipoCozinha tipoCozinhaAtualizacao = TipoCozinha.criar(tipoCozinhaNomeAtualizacao);
         String nomeRestauranteAtualizacao = "Esfiha Imigrantes";
@@ -211,7 +213,7 @@ class AtualizarRestauranteUseCaseTest {
                 horarioFuncionamentoRestaurante,
                 this.donoRestaurante
         );
-        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(restauranteCadastrado);
+        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(Optional.of(restauranteCadastrado));
         Long idUsuarioAtualizacao = 20L;
         when(this.usuarioGateway.buscarUsuarioPorId(any(Long.class))).thenReturn(null);
         String tipoCozinhaNomeAtualizacao = "Arabe";

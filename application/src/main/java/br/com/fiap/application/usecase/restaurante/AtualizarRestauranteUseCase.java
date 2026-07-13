@@ -23,10 +23,8 @@ public class AtualizarRestauranteUseCase {
 
     public Restaurante processar(AtualizarRestauranteInput atualizarEnderecoInput) {
         Long idRestaurante = atualizarEnderecoInput.id();
-        Restaurante restaurante = this.restauranteGateway.buscarRestaurantePorId(idRestaurante);
-        if (restaurante == null) {
-            throw new RestauranteNaoEncontradoException(atualizarEnderecoInput.id());
-        }
+        Restaurante restaurante = this.restauranteGateway
+                .buscarRestaurantePorId(idRestaurante).orElseThrow(() -> new RestauranteNaoEncontradoException(idRestaurante));
         Usuario donoRestaurante = restaurante.getDono();
         if (!donoRestaurante.getId().equals(atualizarEnderecoInput.donoId())) {
             donoRestaurante =  usuarioGateway.buscarUsuarioPorId(atualizarEnderecoInput.donoId());

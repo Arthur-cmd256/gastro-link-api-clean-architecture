@@ -59,6 +59,10 @@ public class Restaurante {
         return tipoCozinha.getNome();
     }
 
+    public TipoCozinha getTipoCozinha() {
+        return tipoCozinha;
+    }
+
     public Usuario getDono() {
         return dono;
     }

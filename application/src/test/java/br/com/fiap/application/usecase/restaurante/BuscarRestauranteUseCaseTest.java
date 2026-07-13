@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -74,7 +76,7 @@ class BuscarRestauranteUseCaseTest {
                 horarioFuncionamentoRestaurante,
                 this.donoRestaurante
         );
-        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(restauranteCadastrado);
+        when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(Optional.of(restauranteCadastrado));
 
         Restaurante restauranteBuscado = BuscarRestauranteUseCase.criar(this.restauranteGateway).processar(idRestaurante);
 

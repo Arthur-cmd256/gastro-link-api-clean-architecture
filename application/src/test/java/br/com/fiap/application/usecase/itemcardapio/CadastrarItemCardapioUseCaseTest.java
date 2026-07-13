@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +43,7 @@ class CadastrarItemCardapioUseCaseTest {
 
         Restaurante restauranteCadastrado = RestauranteFactory.criarRestaurantePadrao();
         Long idRestaurante = restauranteCadastrado.getId();
-        when(this.restauranteGateway.buscarRestaurantePorId(anyLong())).thenReturn(restauranteCadastrado);
+        when(this.restauranteGateway.buscarRestaurantePorId(anyLong())).thenReturn(Optional.of(restauranteCadastrado));
         when(this.itemCardapioGateway.salvarItemCardapio(any(ItemCardapio.class))).thenAnswer(i -> i.getArgument(0));
         CadastrarItemCardapioInput cadastrarItemCardapioInput = new CadastrarItemCardapioInput(
                 nomeItemCardapio,
@@ -101,7 +102,7 @@ class CadastrarItemCardapioUseCaseTest {
     @DisplayName("Cadastrar item cardapio com erro (Restaurante não encotrado)")
     @Test
     void CadastrarItemCardapioComErroRestauranteNaoEncotrado() {
-        when(this.restauranteGateway.buscarRestaurantePorId(anyLong())).thenReturn(null);
+        when(this.restauranteGateway.buscarRestaurantePorId(anyLong())).thenReturn(Optional.empty());
         String nomeItemCardapio = "nomeItemCardapio";
         String descricaoItemCardapio = "descricaoItemCardapio";
         BigDecimal precoItemCardapio = BigDecimal.valueOf(35.99);
