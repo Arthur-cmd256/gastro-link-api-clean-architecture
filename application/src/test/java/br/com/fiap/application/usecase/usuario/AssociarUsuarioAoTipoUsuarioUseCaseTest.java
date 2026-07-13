@@ -10,6 +10,8 @@ import br.com.fiap.domain.exception.UsuarioNaoEncontradoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -40,8 +42,8 @@ class AssociarUsuarioAoTipoUsuarioUseCaseTest {
                 associarUsuarioAoTipoUsuarioInput.idTipoUsuario(),
                 "Dono de Restaurante"
         );
-        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(usuarioCadastrado);
-        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(anyLong())).thenReturn(tipoUsuarioCadastrado);
+        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(Optional.of(usuarioCadastrado));
+        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(anyLong())).thenReturn(Optional.of(tipoUsuarioCadastrado));
         when(this.usuarioGateway.salvarUsuario(any())).thenAnswer(i -> i.getArgument(0));
 
         Usuario usuarioAssociadoATipo = AssociarUsuarioAoTipoUsuarioUseCase
@@ -54,7 +56,7 @@ class AssociarUsuarioAoTipoUsuarioUseCaseTest {
 
     @Test
     void testAssociarUsuarioAoTipoUsuarioComErroUsuarioNaoEncontrado() {
-        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(null);
+        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> {
             AssociarUsuarioAoTipoUsuarioUseCase
@@ -76,8 +78,8 @@ class AssociarUsuarioAoTipoUsuarioUseCaseTest {
                 "joão@example.com",
                 null
         );
-        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(usuarioCadastrado);
-        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(anyLong())).thenReturn(null);
+        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(Optional.of(usuarioCadastrado));
+        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(anyLong())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> {
             AssociarUsuarioAoTipoUsuarioUseCase

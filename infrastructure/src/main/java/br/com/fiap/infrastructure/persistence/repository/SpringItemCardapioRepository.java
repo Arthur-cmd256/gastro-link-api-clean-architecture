@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SpringItemCardapioRepository extends JpaRepository<ItemCardapioJpaEntity, Long> {
+	java.util.List<ItemCardapioJpaEntity> findByRestauranteId(Long restauranteId);
 }
 

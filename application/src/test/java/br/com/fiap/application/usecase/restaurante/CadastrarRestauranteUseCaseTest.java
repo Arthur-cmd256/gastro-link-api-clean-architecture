@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -79,7 +81,7 @@ class CadastrarRestauranteUseCaseTest {
                 tipoCozinha,
                 horarioFuncionamentoRestaurante
         );
-        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(this.donoRestaurante);
+        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(Optional.ofNullable(this.donoRestaurante));
         when(this.restauranteGateway.salvarRestaurante(any(Restaurante.class))).thenAnswer(i -> i.getArgument(0));
 
         final Restaurante restauranteCriado = CadastrarRestauranteUseCase.criar(this.restauranteGateway, this.usuarioGateway).processar(cadastrarRestauranteInput);
@@ -104,7 +106,7 @@ class CadastrarRestauranteUseCaseTest {
                 tipoCozinha,
                 horarioFuncionamentoRestaurante
         );
-        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(null);
+        when(this.usuarioGateway.buscarUsuarioPorId(anyLong())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> {
             CadastrarRestauranteUseCase

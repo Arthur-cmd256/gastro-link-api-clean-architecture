@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -24,7 +26,7 @@ class AtualizarTipoUsuarioUseCaseTest {
     void testAtualizarTipoUsuarioComSucesso() {
         Long idTipoUsuario = 1L;
         TipoUsuario tipoUsuario = TipoUsuario.criar(idTipoUsuario, "Dono");
-        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(tipoUsuario);
+        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(Optional.of(tipoUsuario));
         when(this.tipoUsuarioGateway.salvarTipoUsuario(any(TipoUsuario.class))).thenAnswer(i -> i.getArgument(0));
         AtualizarTipoUsuarioInput tipoUsuarioAtualizacao = new AtualizarTipoUsuarioInput(idTipoUsuario, "Cliente");
 
@@ -37,7 +39,7 @@ class AtualizarTipoUsuarioUseCaseTest {
 
     @Test
     void testAtualizarTipoUsuarioComErroEntidadeNaoEncontrada() {
-        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(null);
+        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(Optional.empty());
         Long idTipoUsuario = 1L;
         AtualizarTipoUsuarioInput tipoUsuarioAtualizacao = new AtualizarTipoUsuarioInput(idTipoUsuario, "Cliente");
 

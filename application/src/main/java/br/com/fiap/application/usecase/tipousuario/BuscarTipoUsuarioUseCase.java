@@ -2,6 +2,7 @@ package br.com.fiap.application.usecase.tipousuario;
 
 import br.com.fiap.application.port.out.ITipoUsuarioGateway;
 import br.com.fiap.domain.entity.TipoUsuario;
+import br.com.fiap.domain.exception.TipoUsuarioNaoEncontradoException;
 
 public class BuscarTipoUsuarioUseCase {
 
@@ -16,6 +17,8 @@ public class BuscarTipoUsuarioUseCase {
     }
 
     public TipoUsuario processar(Long idTipoUsuario) {
-        return this.tipoUsuarioGateway.buscarTipoUsuarioPorId(idTipoUsuario);
+        return this.tipoUsuarioGateway
+                .buscarTipoUsuarioPorId(idTipoUsuario)
+                .orElseThrow(() -> new TipoUsuarioNaoEncontradoException(idTipoUsuario));
     }
 }

@@ -21,10 +21,9 @@ public class CadastrarRestauranteUseCase {
     }
 
     public Restaurante processar(CadastrarRestauranteInput input) {
-        Usuario dono = this.usuarioGateway.buscarUsuarioPorId(input.donoId());
-        if (dono == null) {
-            throw new UsuarioNaoEncontradoException(input.donoId());
-        }
+        Usuario dono = this.usuarioGateway
+                .buscarUsuarioPorId(input.donoId())
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(input.donoId()));
         Restaurante restaurante = Restaurante.criar(
                 input.nome(),
                 input.endereco(),

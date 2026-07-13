@@ -19,10 +19,9 @@ public class AtualizarTipoUsuarioUseCase {
 
     public TipoUsuario processar(AtualizarTipoUsuarioInput atualizarTipoUsuarioInput) {
         Long idTipoUsuario = atualizarTipoUsuarioInput.id();
-        TipoUsuario tipoUsuario = this.tipoUsuarioGateway.buscarTipoUsuarioPorId(idTipoUsuario);
-        if (tipoUsuario == null) {
-            throw new TipoUsuarioNaoEncontradoException(idTipoUsuario);
-        }
+        TipoUsuario tipoUsuario = this.tipoUsuarioGateway
+                .buscarTipoUsuarioPorId(idTipoUsuario)
+                .orElseThrow(() -> new TipoUsuarioNaoEncontradoException(idTipoUsuario));
         TipoUsuario tipoUsuarioAlterado = TipoUsuario.criar(
                 atualizarTipoUsuarioInput.id(),
                 atualizarTipoUsuarioInput.nome()

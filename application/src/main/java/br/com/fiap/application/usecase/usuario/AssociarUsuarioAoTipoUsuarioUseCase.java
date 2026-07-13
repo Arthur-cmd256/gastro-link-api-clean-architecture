@@ -24,14 +24,12 @@ public class AssociarUsuarioAoTipoUsuarioUseCase {
     public Usuario processar(AssociarUsuarioAoTipoUsuarioInput associarUsuarioAoTipoUsuarioInput) {
         Long idUsuario = associarUsuarioAoTipoUsuarioInput.idUsuario();
         Long idTipoUsuario = associarUsuarioAoTipoUsuarioInput.idTipoUsuario();
-        Usuario usuarioBuscado = this.usuarioGateway.buscarUsuarioPorId(idUsuario);
-        if (usuarioBuscado == null) {
-            throw new UsuarioNaoEncontradoException(idUsuario);
-        }
-        TipoUsuario tipoUsuarioBuscado = this.tipoUsuarioGateway.buscarTipoUsuarioPorId(idTipoUsuario);
-        if (tipoUsuarioBuscado == null) {
-            throw new TipoUsuarioNaoEncontradoException(idTipoUsuario);
-        }
+        Usuario usuarioBuscado = this.usuarioGateway
+                .buscarUsuarioPorId(idUsuario)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(idUsuario));
+        TipoUsuario tipoUsuarioBuscado = this.tipoUsuarioGateway
+                .buscarTipoUsuarioPorId(idTipoUsuario)
+                .orElseThrow(() -> new TipoUsuarioNaoEncontradoException(idTipoUsuario));
         Usuario usuarioComTipo = Usuario.criar(
                 usuarioBuscado.getId(),
                 usuarioBuscado.getNome(),

@@ -27,10 +27,9 @@ public class AtualizarRestauranteUseCase {
                 .buscarRestaurantePorId(idRestaurante).orElseThrow(() -> new RestauranteNaoEncontradoException(idRestaurante));
         Usuario donoRestaurante = restaurante.getDono();
         if (!donoRestaurante.getId().equals(atualizarEnderecoInput.donoId())) {
-            donoRestaurante =  usuarioGateway.buscarUsuarioPorId(atualizarEnderecoInput.donoId());
-        }
-        if (donoRestaurante == null) {
-            throw new UsuarioNaoEncontradoException(atualizarEnderecoInput.donoId());
+            donoRestaurante =  usuarioGateway
+                    .buscarUsuarioPorId(atualizarEnderecoInput.donoId())
+                    .orElseThrow(() -> new UsuarioNaoEncontradoException(atualizarEnderecoInput.donoId()));
         }
         Restaurante restauranteAtualizacao = Restaurante.criar(
                 atualizarEnderecoInput.id(),

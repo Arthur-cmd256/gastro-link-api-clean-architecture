@@ -18,10 +18,8 @@ public class AtualizarItemCardapioUseCase {
     }
 
     public ItemCardapio processar(AtualizarItemCardapioInput atualizarItemCardapioInput) {
-        ItemCardapio itemCardapio = this.itemCardapioGateway.buscarItemCardapioPorId(atualizarItemCardapioInput.id());
-        if (itemCardapio == null) {
-            throw new ItemCardapioNaoEncontradoException(atualizarItemCardapioInput.id());
-        }
+        ItemCardapio itemCardapio = this.itemCardapioGateway
+                .buscarItemCardapioPorId(atualizarItemCardapioInput.id()).orElseThrow(() -> new ItemCardapioNaoEncontradoException(atualizarItemCardapioInput.id()));
         ItemCardapio itemCardapioAtualizacao = ItemCardapio.criar(
                 atualizarItemCardapioInput.id(),
                 atualizarItemCardapioInput.nome(),

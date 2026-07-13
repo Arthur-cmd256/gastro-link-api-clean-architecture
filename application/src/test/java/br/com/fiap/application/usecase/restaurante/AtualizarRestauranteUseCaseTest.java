@@ -143,7 +143,7 @@ class AtualizarRestauranteUseCaseTest {
                 "arthur@example.com",
                 this.tipoUsuario
         );
-        when(this.usuarioGateway.buscarUsuarioPorId(any(Long.class))).thenReturn(donoRestauranteAtualizacao);
+        when(this.usuarioGateway.buscarUsuarioPorId(any(Long.class))).thenReturn(Optional.ofNullable(donoRestauranteAtualizacao));
         String tipoCozinhaNomeAtualizacao = "Arabe";
         TipoCozinha tipoCozinhaAtualizacao = TipoCozinha.criar(tipoCozinhaNomeAtualizacao);
         String nomeRestauranteAtualizacao = "Esfiha Imigrantes";
@@ -215,7 +215,7 @@ class AtualizarRestauranteUseCaseTest {
         );
         when(this.restauranteGateway.buscarRestaurantePorId(any(Long.class))).thenReturn(Optional.of(restauranteCadastrado));
         Long idUsuarioAtualizacao = 20L;
-        when(this.usuarioGateway.buscarUsuarioPorId(any(Long.class))).thenReturn(null);
+        when(this.usuarioGateway.buscarUsuarioPorId(any(Long.class))).thenReturn(Optional.empty());
         String tipoCozinhaNomeAtualizacao = "Arabe";
         TipoCozinha tipoCozinhaAtualizacao = TipoCozinha.criar(tipoCozinhaNomeAtualizacao);
         String nomeRestauranteAtualizacao = "Esfiha Imigrantes";

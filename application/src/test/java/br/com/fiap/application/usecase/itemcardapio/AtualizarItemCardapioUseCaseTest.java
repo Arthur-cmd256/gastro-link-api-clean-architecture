@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +31,7 @@ class AtualizarItemCardapioUseCaseTest {
     @Test
     void testAtualizarItemCardapioComSucesso() {
         ItemCardapio itemCardapioCadastrado = ItemCardapioFactory.criarItemCardapioPadrao();
-        when(this.itemCardapioGateway.buscarItemCardapioPorId(Mockito.anyLong())).thenReturn(itemCardapioCadastrado);
+        when(this.itemCardapioGateway.buscarItemCardapioPorId(Mockito.anyLong())).thenReturn(Optional.of(itemCardapioCadastrado));
         when(this.itemCardapioGateway.salvarItemCardapio(any(ItemCardapio.class))).thenAnswer(i -> i.getArgument(0));
         AtualizarItemCardapioInput input = new AtualizarItemCardapioInput(
                 itemCardapioCadastrado.getId(),
@@ -56,7 +57,7 @@ class AtualizarItemCardapioUseCaseTest {
     @DisplayName("Atualizar item cardapio com erro (Item cardapio não encontrado)")
     @Test
     void testAtualizarItemCardapioComErroItemCardapioNaoEncontrado() {
-        when(this.itemCardapioGateway.buscarItemCardapioPorId(Mockito.anyLong())).thenReturn(null);
+        when(this.itemCardapioGateway.buscarItemCardapioPorId(Mockito.anyLong())).thenReturn(Optional.empty());
         Long idItemCardapio = 20L;
         AtualizarItemCardapioInput input = new AtualizarItemCardapioInput(
                 idItemCardapio,

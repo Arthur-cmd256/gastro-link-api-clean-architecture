@@ -5,6 +5,8 @@ import br.com.fiap.domain.entity.TipoUsuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -23,7 +25,7 @@ class BuscarTipoUsuarioUseCaseTest {
         Long id = 1L;
         String nomeTipoUsuario = "Dono de Restaurante";
         TipoUsuario tipoUsuario = TipoUsuario.criar(id, nomeTipoUsuario);
-        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(tipoUsuario);
+        when(this.tipoUsuarioGateway.buscarTipoUsuarioPorId(any(Long.class))).thenReturn(Optional.of(tipoUsuario));
 
         TipoUsuario tipoUsuarioRetorno = BuscarTipoUsuarioUseCase.criar(this.tipoUsuarioGateway).processar(id);
 
